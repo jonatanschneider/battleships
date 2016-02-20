@@ -2,15 +2,16 @@ package game;
 import javax.swing.*;
 import ships.*;
 import java.awt.Color;
+import java.io.IOException;
 
-public class Player {
+public class clientPlayer {
 	private int battleshipsToCreate;
 	private int cruisersToCreate;
 	private int destoryersToCreate;
 	private int submarinesToCreate;
 	private Ship[] ships;
 	
-	public Player(){
+	public clientPlayer(){
 		this.battleshipsToCreate = 1;
 		this.cruisersToCreate = 2;
 		this.destoryersToCreate = 3;
@@ -18,16 +19,18 @@ public class Player {
 		this.ships = new Ship[10];
 	}
 	
-	public void setShip(int[] coordinates){
+	public void setShip(int[] coordinates) throws IOException{
 		for (int i = 0; i < this.ships.length; i++) {
 			if(this.ships[i] == null){		
 				int shipLength = SetPhase.calculateLengthBetweenCoordinates(coordinates);
 				switch(shipLength){
 				case 1:
 					if(this.submarinesToCreate > 0){
+						
 						this.ships[i] = new Submarine();
 						this.ships[i].setCoordinates(coordinates);
-						JOptionPane.showMessageDialog(null, "U-Boot erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
+						int rueckgabe = main.sendToServer(coordinates, 0); //TODO ANDERUNG
+						System.out.println(rueckgabe + "ausgabe");
 						this.submarinesToCreate--;
 						}
 					else{
@@ -96,6 +99,7 @@ public class Player {
 		return button;
 		
 	}
+	
 	/** 
 	 * Deaktiviert die umliegenden Buttons, an welchen keine weitere Schiffe platziert werden dürfen
 	 * @param button Alle Buttons
@@ -138,6 +142,20 @@ public class Player {
 		return 0;
 	}
 	
+	public int serverisHit(int x, int y){
+		for (Ship ship : ships) {
+			if(ship != null){
+				if(ship.isHit(x, y)){
+					if(ship.isSunken()){		
+						return 2;
+					}
+					return 1;
+				}
+			}
+		}
+		return 0;
+	}
+	
 	private void shipIsSunken(JButton[][] button, Ship ship){
 		int[][] coordinates = ship.getCoordinates();
 		for (int i = 0; i < coordinates.length; i++) {
@@ -160,7 +178,7 @@ public class Player {
 		}
 		return true;
 	}
-
+	
 	public boolean allShipsSunken(){
 		for (Ship ship : ships) {
 			if(ship != null){

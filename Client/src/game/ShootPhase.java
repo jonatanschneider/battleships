@@ -1,6 +1,8 @@
 package game;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 public class ShootPhase extends Buttons {
@@ -10,7 +12,7 @@ public class ShootPhase extends Buttons {
 		this.player = player;
 	}
 
-	protected void buttons(Container pane) {
+	public void buttons(Container pane) {
 		this.al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String source = e.getSource().toString().substring(21);
@@ -23,8 +25,16 @@ public class ShootPhase extends Buttons {
 		pane.add(this.panel, BorderLayout.NORTH);
 	}
 
+	private int[] hitted = new int[5];
+	
 	private void shoot(int[] coordinates) {
-		int shot = this.player.isHit(this.button, coordinates[0], coordinates[1]);
+		int shot = -1;
+		try {
+			shot = main.sendToServer(coordinates, 1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		if (shot == 1) {
 			colorButton(coordinates, Color.red, true);
 			JOptionPane.showMessageDialog(null, "Treffer!");
