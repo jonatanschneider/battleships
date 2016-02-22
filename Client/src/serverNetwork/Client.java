@@ -34,8 +34,8 @@ public class Client extends JFrame {
 	}
 	
 	private void initiateSetPhase(){
-		Player player = new Player();
-		SetPhase setShipFrame = new SetPhase(player);		
+		ServerPlayer player = new ServerPlayer();
+		ServerSetPhase setShipFrame = new ServerSetPhase(player);		
 	        setShipFrame.setResizable(false);  
 	        setShipFrame.buttons(setShipFrame.getContentPane());
 	        setShipFrame.pack();
@@ -46,7 +46,7 @@ public class Client extends JFrame {
 	        		+ "Klick dazu immer auf das Anfangs- und Endfeld");
 	}
 	
-	public static void initiateShootPhase(Player player){
+	public static void initiateShootPhase(ServerPlayer player){
 		ShootPhase shootFrame = new ShootPhase(player);
 		shootFrame.setResizable(false);  
         shootFrame.buttons(shootFrame.getContentPane());

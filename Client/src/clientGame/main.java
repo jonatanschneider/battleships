@@ -10,8 +10,8 @@ import game.Buttons;
 import javax.swing.JOptionPane;
 
 public class main {
-	public static Player player = new Player();
-	public static Player player2 = new Player();
+	public static ClientPlayer player = new ClientPlayer();
+	public static ClientPlayer player2 = new ClientPlayer();
 	public static Socket _Socket = null;
 	public static PrintStream _out = null;
 	public static BufferedReader _in = null;
@@ -33,8 +33,8 @@ public class main {
 		}
 		
 		private static void initiateSetPhase(){
-			Player player = new Player();
-			SetPhase setShipFrame = new SetPhase(player);		
+			ClientPlayer player = new ClientPlayer();
+			ClientSetPhase setShipFrame = new ClientSetPhase(player);		
 		        setShipFrame.setResizable(false);  
 		        setShipFrame.buttons(setShipFrame.getContentPane());
 		        setShipFrame.pack();
@@ -45,7 +45,7 @@ public class main {
 		        		+ "Klick dazu immer auf das Anfangs- und Endfeld");
 		}
 		
-		public static void initiateShootPhase(Player player) throws IOException{
+		public static void initiateShootPhase(ClientPlayer player) throws IOException{
 			int warte = sendReady();
 			System.out.println(warte);
 			ShootPhase shootFrame = new ShootPhase(player);

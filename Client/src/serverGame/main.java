@@ -7,8 +7,8 @@ import serverNetwork.Client;
 import serverNetwork.server;
 
 public class main {
-	public static Player player = new Player();
-	public static Player player2 = new Player();
+	public static ServerPlayer player = new ServerPlayer();
+	public static ServerPlayer player2 = new ServerPlayer();
 	
 	public static void main(String[] args) throws UnknownHostException {	
 		
@@ -18,7 +18,7 @@ public class main {
 			e.printStackTrace();
 		}
 		
-	SetPhase setShipFrame = new SetPhase(player);		
+	ServerSetPhase setShipFrame = new ServerSetPhase(player);		
 	        setShipFrame.setResizable(false);  
 	        setShipFrame.buttons(setShipFrame.getContentPane());
 	        setShipFrame.pack();

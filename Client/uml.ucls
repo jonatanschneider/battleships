@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="clientGame.SetPhase" project="Schiffeversenken" 
-    file="/Schiffeversenken/src/clientGame/SetPhase.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="clientGame.ClientSetPhase" project="Schiffeversenken" 
+    file="/Schiffeversenken/src/clientGame/ClientSetPhase.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="186" x="62" y="1560"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -91,8 +91,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="serverGame.Player" project="Schiffeversenken" 
-    file="/Schiffeversenken/src/serverGame/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="11" language="java" name="serverGame.ServerPlayer" project="Schiffeversenken" 
+    file="/Schiffeversenken/src/serverGame/ServerPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1660" y="1209"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -118,8 +118,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="serverGame.SetPhase" project="Schiffeversenken" 
-    file="/Schiffeversenken/src/serverGame/SetPhase.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="14" language="java" name="serverGame.ServerSetPhase" project="Schiffeversenken" 
+    file="/Schiffeversenken/src/serverGame/ServerSetPhase.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1679" y="1541"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -194,71 +194,62 @@
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <generalization id="23">    
-    <bendpoint x="1346" y="814"/>    
-    <bendpoint x="1346" y="657"/>    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <dependency id="24">    
+  <dependency id="23">    
     <bendpoint x="945" y="1205"/>    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="17"/>  
   </dependency>  
-  <generalization id="25">    
-    <bendpoint x="217" y="1205"/>    
-    <bendpoint x="239" y="814"/>    
-    <bendpoint x="239" y="657"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <dependency id="26">    
+  <dependency id="24">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="13"/>  
   </dependency>  
-  <dependency id="27">    
+  <dependency id="25">    
     <bendpoint x="924" y="1205"/>    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="19"/>  
   </dependency>  
-  <generalization id="28">    
+  <generalization id="26">    
     <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <generalization id="29">    
+  <generalization id="27">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
-  <dependency id="30">    
+  <dependency id="28">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="31">    
+  <association id="29">    
     <bendpoint x="1163" y="657"/>    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="32" name="player"/>      
-      <multiplicity id="33" minimum="0" maximum="1"/>    
+      <attribute id="30" name="player"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="34">    
+  <dependency id="32">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="15"/>  
   </dependency>  
-  <dependency id="35">    
+  <association id="33">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="34" name="player"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="36">    
     <bendpoint x="1304" y="657"/>    
     <bendpoint x="1304" y="814"/>    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="14"/>  
   </dependency>  
-  <dependency id="36">    
+  <dependency id="37">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="11"/>  
-  </dependency>  
-  <dependency id="37">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
   </dependency>  
   <dependency id="38">    
     <end type="SOURCE" refId="1"/>    
@@ -278,99 +269,91 @@
     <end type="TARGET" refId="10"/>  
   </dependency>  
   <generalization id="43">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <generalization id="44">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
-  <association id="45">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="46" name="ships"/>      
-      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="48">    
+  <dependency id="44">    
     <bendpoint x="681" y="374"/>    
     <bendpoint x="723" y="657"/>    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="11"/>  
   </dependency>  
-  <generalization id="49">    
+  <generalization id="45">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <dependency id="50">    
+  <dependency id="46">    
     <bendpoint x="1142" y="657"/>    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="11"/>  
   </dependency>  
-  <dependency id="51">    
+  <association id="47">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="48" name="player"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="50">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="52">    
+  <dependency id="51">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="14"/>  
   </dependency>  
-  <generalization id="53">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <dependency id="54">    
+  <dependency id="52">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="10"/>  
   </dependency>  
-  <dependency id="55">    
+  <generalization id="53">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <dependency id="54">    
     <bendpoint x="1221" y="1205"/>    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="20"/>  
   </dependency>  
-  <generalization id="56">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <dependency id="57">    
+  <dependency id="55">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="11"/>  
   </dependency>  
-  <generalization id="58">    
+  <generalization id="56">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <dependency id="59">    
+  <dependency id="57">    
     <bendpoint x="942" y="657"/>    
     <bendpoint x="1262" y="814"/>    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="14"/>  
   </dependency>  
-  <dependency id="60">    
+  <dependency id="58">    
     <bendpoint x="259" y="1205"/>    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="61">    
+  <dependency id="59">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="13"/>  
   </dependency>  
-  <dependency id="62">    
+  <dependency id="60">    
     <bendpoint x="1007" y="1205"/>    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  
-  <association id="63">    
+  <association id="61">    
     <bendpoint x="853" y="657"/>    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="64" name="player2"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
+      <attribute id="62" name="player2"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="66">    
+  <generalization id="64">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  

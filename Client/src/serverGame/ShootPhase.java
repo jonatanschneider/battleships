@@ -4,9 +4,9 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 
 public class ShootPhase extends game.Buttons {
-	private Player player;
+	private ServerPlayer player;
 	
-	public ShootPhase(Player player) {
+	public ShootPhase(ServerPlayer player) {
 		super();
 		this.player = player;
 	}

@@ -4,10 +4,10 @@ import ships.Battleship;
 import ships.*;
 import java.awt.Color;
 
-public class Player extends game.Player{
+public class ServerPlayer extends game.Player{
 	private int status;
 	
-	public Player(){
+	public ServerPlayer(){
 		super();
 		this.status = 0;
 	}
@@ -22,7 +22,7 @@ public class Player extends game.Player{
 	public void setShip(int[] coordinates){
 		for (int i = 0; i < this.ships.length; i++) {
 			if(this.ships[i] == null){		
-				int shipLength = SetPhase.calculateLengthBetweenCoordinates(coordinates);
+				int shipLength = ServerSetPhase.calculateLengthBetweenCoordinates(coordinates);
 				switch(shipLength){
 				case 1:
 					if(this.submarinesToCreate > 0){

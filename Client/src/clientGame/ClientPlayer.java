@@ -4,16 +4,16 @@ import ships.*;
 import java.awt.Color;
 import java.io.IOException;
 
-public class Player extends game.Player {
+public class ClientPlayer extends game.Player {
 	
-	public Player(){
+	public ClientPlayer(){
 		super();
 	}
 	
 	public void setShip(int[] coordinates) throws IOException{
 		for (int i = 0; i < this.ships.length; i++) {
 			if(this.ships[i] == null){		
-				int shipLength = SetPhase.calculateLengthBetweenCoordinates(coordinates);
+				int shipLength = ClientSetPhase.calculateLengthBetweenCoordinates(coordinates);
 				switch(shipLength){
 				case 1:
 					if(this.submarinesToCreate > 0){
