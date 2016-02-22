@@ -1,9 +1,8 @@
 package serverGame;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-public class ShootPhase extends game.Buttons {
+public class ShootPhase extends game.ShootPhase {
 	private ServerPlayer player;
 	
 	public ShootPhase(ServerPlayer player) {
@@ -11,20 +10,7 @@ public class ShootPhase extends game.Buttons {
 		this.player = player;
 	}
 
-	public void buttons(Container pane) {
-		this.al = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String source = e.getSource().toString().substring(21);
-				getCoordinatesCounter = 0;
-				int[] coordinates = getCoordinatesOfClick(source);
-				shoot(coordinates);
-			}
-		};
-		this.setButtons();
-		pane.add(this.panel, BorderLayout.NORTH);
-	}
-
-	private void shoot(int[] coordinates) {
+	protected void shoot(int[] coordinates) {
 		int shot = this.player.isHit(this.button, coordinates[0], coordinates[1]);
 		if (shot == 1) {
 			colorButton(coordinates, Color.red, true);
