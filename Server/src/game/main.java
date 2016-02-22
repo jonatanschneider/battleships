@@ -39,7 +39,7 @@ public class main {
 		}
 		
 		while(player2.getStatus() == 0){
-			System.out.println("warte");
+			
 		}
 		ShootPhase shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);  

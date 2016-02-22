@@ -14,6 +14,7 @@ public class Ship {
 	public int[][] getCoordinates() {
 		return coordinates;
 	}	
+	
 	public void setSunken(boolean isSunken) {
 		this.isSunken = isSunken;
 	}

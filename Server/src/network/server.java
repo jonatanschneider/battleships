@@ -75,6 +75,14 @@ public class server extends Thread {
 				}
 			}
 			} catch (IOException e) {
+				try {
+					in.close();
+					out.close();
+					serverSocket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 		}

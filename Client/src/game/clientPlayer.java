@@ -1,6 +1,8 @@
 package game;
 import javax.swing.*;
+
 import ships.*;
+
 import java.awt.Color;
 import java.io.IOException;
 
@@ -29,7 +31,7 @@ public class clientPlayer {
 						
 						this.ships[i] = new Submarine();
 						this.ships[i].setCoordinates(coordinates);
-						int rueckgabe = main.sendToServer(coordinates, 0); //TODO ANDERUNG
+						int rueckgabe = main.sendToServer(coordinates, 0);
 						System.out.println(rueckgabe + "ausgabe");
 						this.submarinesToCreate--;
 						}

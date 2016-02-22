@@ -25,8 +25,6 @@ public class ShootPhase extends Buttons {
 		pane.add(this.panel, BorderLayout.NORTH);
 	}
 
-	private int[] hitted = new int[5];
-	
 	private void shoot(int[] coordinates) {
 		int shot = -1;
 		try {
@@ -40,6 +38,7 @@ public class ShootPhase extends Buttons {
 			JOptionPane.showMessageDialog(null, "Treffer!");
 		}
 		else if (shot == 2) {
+			player.findOther(this.button, coordinates);
 			colorButton(coordinates, Color.green, true);
 			JOptionPane.showMessageDialog(null, "Treffer und versenkt!");
 		}

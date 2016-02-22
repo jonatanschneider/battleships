@@ -197,4 +197,21 @@ public class Player {
 		return true;
 	}
 	
+	public void findOther(JButton[][] button , int[] coords){
+		int x = coords[0];
+		int y = coords[1];
+		for(Ship ship : ships ){
+			int[][] coordinates = ship.getCoordinates();
+			if(coordinates[x][y] == 1){
+				for(int j = 0; j < coordinates.length; j++){
+					for (int h = 0; h < coordinates.length; h++) {
+						if(coordinates[j][h] == 1){
+							button[h][j].setEnabled(false);
+							button[h][j].setBackground(Color.green);
+						}
+					}
+				}
+			}
+		}
+	}
 }

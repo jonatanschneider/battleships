@@ -60,7 +60,7 @@ public class main {
 		
 		public static int sendToServer(int[] coords, int meth) throws IOException{    	                            
 			try{
-				_Socket.setSoTimeout(5000);
+				//_Socket.setSoTimeout(5000);
 				int x = coords[0];
 				int y = coords[1];
 				int endx = 0;
@@ -74,7 +74,7 @@ public class main {
 				_out.flush();
 		        String serverResponse = null;	       
 	            while ((serverResponse = _in.readLine()) != null){
-	            	if(Integer.parseInt(serverResponse) > 0){            	
+	            	if(Integer.parseInt(serverResponse) >= 0){            	
 	            		System.out.println(serverResponse);
 	            		return Integer.parseInt(serverResponse);
 	            	}
@@ -92,7 +92,8 @@ public class main {
 				//_Socket.setSoTimeout(5000);		
 				_out.print("ready\n");   
 				_out.flush();
-		        String serverResponse = null;	       
+		        String serverResponse = null;	
+		        JOptionPane.showMessageDialog(null, "Warte auf Spieler1");
 	            while ((serverResponse = _in.readLine()) != null){
 	            	if(serverResponse.equals("ready")){            	
 	            		System.out.println(serverResponse);
