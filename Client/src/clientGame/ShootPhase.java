@@ -5,8 +5,9 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-public class ShootPhase extends Buttons {
-
+public class ShootPhase extends game.Buttons {
+	private Player player;
+	
 	public ShootPhase(Player player) {
 		super();
 		this.player = player;

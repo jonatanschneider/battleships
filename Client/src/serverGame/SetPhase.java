@@ -5,11 +5,11 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import serverGame.Player;
 
-public class SetPhase extends Buttons {
+public class SetPhase extends game.Buttons {
 	private int clickCounter = 0;
-
 	private int[] clickCoordinates = new int[4];
-
+	private Player player;
+	
 	public SetPhase(Player player) {
 		super();
 		this.player = player;

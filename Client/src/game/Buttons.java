@@ -1,15 +1,18 @@
-package clientGame;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+package game;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public abstract class Buttons extends JFrame {
 
 	protected JButton[][] button;
 	protected JPanel panel;
 	protected ActionListener al;
-	protected Player player;
 	protected int getCoordinatesCounter;
 
 	protected Buttons() {
@@ -70,7 +73,7 @@ public abstract class Buttons extends JFrame {
 		return coordinates;
 	}
 
-	protected static int calculateLengthBetweenCoordinates(int[] coordinates) {
+	public static int calculateLengthBetweenCoordinates(int[] coordinates) {
 		int xOfStart = coordinates[0];
 		int yOfStart = coordinates[1];
 		int xOfEnd = coordinates[2];
@@ -103,5 +106,5 @@ public abstract class Buttons extends JFrame {
 		this.button[coordinates[1]][coordinates[0]].setBackground(color);
 	}
 	
-	abstract void buttons(Container pane);
+	protected abstract void buttons(Container pane);
 }

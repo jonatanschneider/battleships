@@ -1,6 +1,6 @@
 package clientGame;
 import javax.swing.*;
-import clientShips.*;
+import ships.*;
 import java.awt.Color;
 import java.io.IOException;
 

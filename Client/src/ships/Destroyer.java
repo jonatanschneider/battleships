@@ -1,4 +1,4 @@
-package serverShips;
+package ships;
 
 public class Destroyer extends Ship{
 	

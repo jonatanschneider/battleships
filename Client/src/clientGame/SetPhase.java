@@ -3,15 +3,14 @@ package clientGame;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 import clientGame.Player;
 
-public class SetPhase extends Buttons {
+public class SetPhase extends game.Buttons {
 	private int clickCounter = 0;
-
 	private int[] clickCoordinates = new int[4];
-
+	private Player player;
+	
 	public SetPhase(Player player) {
 		super();
 		this.player = player;

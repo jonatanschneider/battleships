@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+import game.Buttons;
 import javax.swing.JOptionPane;
 
 public class main {

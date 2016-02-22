@@ -1,4 +1,4 @@
-package clientShips;
+package ships;
 
 public class Battleship extends Ship{
 	

@@ -1,7 +1,7 @@
 package serverGame;
 import javax.swing.*;
-import serverShips.*;
-import java.awt.Button;
+import ships.Battleship;
+import ships.*;
 import java.awt.Color;
 
 public class Player {
