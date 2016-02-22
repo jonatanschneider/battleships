@@ -93,11 +93,11 @@ public class ClientPlayer extends game.Player {
 		for(Ship ship : ships ){
 			int[][] coordinates = ship.getCoordinates();
 			if(coordinates[x][y] == 1){
-				for(int j = 0; j < coordinates.length; j++){
-					for (int h = 0; h < coordinates.length; h++) {
-						if(coordinates[j][h] == 1){
-							button[h][j].setEnabled(false);
-							button[h][j].setBackground(Color.green);
+				for(int i = 0; i < coordinates.length; i++){
+					for (int j = 0; j < coordinates.length; j++) {
+						if(coordinates[i][j] == 1){
+							button[j][i].setEnabled(false);
+							button[j][i].setBackground(Color.green);
 						}
 					}
 				}

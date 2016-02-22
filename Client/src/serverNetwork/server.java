@@ -14,17 +14,18 @@ import serverGame.main;
 
 public class server extends Thread {
 	
-	ServerSocket 	serverSocket	= null;
-	Socket 			clientSocket 	= null;
-	static PrintWriter 	out 			= null;
-	BufferedReader 	in 				= null;
+	ServerSocket serverSocket = null;
+	Socket clientSocket = null;
+	/*static PrintWriter out = null;
+	BufferedReader in = null;*/
+	static PrintWriter serverOutput = null;
+	BufferedReader clientInput = null;
 	
 	public server(){	
 			
 			try {
 				serverSocket = new ServerSocket(8080);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println("gestartet");
@@ -34,63 +35,61 @@ public class server extends Thread {
 		while(true){
 			try {
 			clientSocket = serverSocket.accept();
-			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			out = new PrintWriter(clientSocket.getOutputStream());
+			clientInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			serverOutput = new PrintWriter(clientSocket.getOutputStream());
 			JOptionPane.showMessageDialog(null, "Spieler Zwei ist Verbunden");
 			while(true){	
-				String incomming = null;
-				incomming = in.readLine();
-				if(incomming.equals("ready")){
+				String incoming = null;
+				incoming = clientInput.readLine();
+				if(incoming.equals("ready")){
 					if(main.player.getStatus() == 1){
-						out.write("ready\n");
-						out.flush();
+						serverOutput.write("ready\n");
+						serverOutput.flush();
 						main.player2.setStatus(1);
 					}else{
 						main.player2.setStatus(1);
 					}
 				}else{
-					int x = Integer.parseInt(incomming.substring(0,1));
-					int y = Integer.parseInt(incomming.substring(1,2));
-					int xend = Integer.parseInt(incomming.substring(2,3));
-					int yend = Integer.parseInt(incomming.substring(3,4));
-					int meth = Integer.parseInt(incomming.substring(4,5));
-					System.out.println(x +"" + y + ""+ xend + ""+ yend + "" + meth );
+					int xStart = Integer.parseInt(incoming.substring(0,1));
+					int y = Integer.parseInt(incoming.substring(1,2));
+					int xend = Integer.parseInt(incoming.substring(2,3));
+					int yend = Integer.parseInt(incoming.substring(3,4));
+					int meth = Integer.parseInt(incoming.substring(4,5));
+					System.out.println(xStart +"" + y + ""+ xend + ""+ yend + "" + meth );
 					
 					if(meth == 0){
-						int coords[]= { x , y , xend , yend};
+						int coords[]= { xStart , y , xend , yend};
 						for (int i = 0; i < coords.length; i++) {
 							System.out.println(coords[i]);
 						}
 						main.player2.setShip(coords);
 						System.out.println("test");
-						out.write("1\n");
-						out.flush();
+						serverOutput.write("1\n");
+						serverOutput.flush();
 					}else{
-						int ergebniss = main.player.serverisHit(x,y);
+						int ergebniss = main.player.serverisHit(xStart,y);
 						System.out.println(ergebniss);
-						out.write(ergebniss+"\n");
-						out.flush();
+						serverOutput.write(ergebniss+"\n");
+						serverOutput.flush();
 					}	
 				}
 			}
 			} catch (IOException e) {
 				try {
-					in.close();
-					out.close();
+					clientInput.close();
+					serverOutput.close();
 					serverSocket.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
 			}
-		}
-		
-	}// run
+		}	
+	}
 	
 	public static void sendReady(){
-			out.write("ready\n");
-			out.flush();
+			serverOutput.write("ready\n");
+			serverOutput.flush();
 	}
 	
 }

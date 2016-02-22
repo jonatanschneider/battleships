@@ -12,9 +12,9 @@ import serverGame.*;
 
 public class Client extends JFrame {
 
-	public static Socket _Socket = null;
-	public static PrintStream _out = null;
-	public static BufferedReader _in = null;
+	public static Socket Socket = null;
+	public static PrintStream clientOutput = null;
+	public static BufferedReader serverInput = null;
 
 	public Client() throws UnknownHostException {
 		super();
@@ -25,9 +25,9 @@ public class Client extends JFrame {
 
 	public static void init() throws UnknownHostException {
 		try {
-			_Socket = new Socket("localhost", 8080);
-			_out = new PrintStream(_Socket.getOutputStream(), true);
-			_in = new BufferedReader(new InputStreamReader(_Socket.getInputStream()));
+			Socket = new Socket("localhost", 8080);
+			clientOutput = new PrintStream(Socket.getOutputStream(), true);
+			serverInput = new BufferedReader(new InputStreamReader(Socket.getInputStream()));
 		}
 		catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung hergestellt werden");
@@ -58,18 +58,18 @@ public class Client extends JFrame {
 		JOptionPane.showMessageDialog(shootFrame, "Du kannst jetzt auf das Feld deines Gegners schießen");
 	}
 
-	public static int sendToServer(int[] coords, int meth) throws IOException {
+	public static int sendToServer(int[] coordinates, int meth) throws IOException {
 		try {
-			_Socket.setSoTimeout(500);
-			int x = coords[0];
-			int y = coords[1];
-			int endx = coords[2];
-			int endy = coords[3];
+			Socket.setSoTimeout(500);
+			int xOfStart = coordinates[0];
+			int yOfStart = coordinates[1];
+			int xOfEnd = coordinates[2];
+			int yOfEnd = coordinates[3];
 
-			_out.print(x + "" + y + "" + endx + "" + endy + "" + meth + "\n");
-			_out.flush();
+			clientOutput.print(xOfStart + "" + yOfStart + "" + xOfEnd + "" + yOfEnd + "" + meth + "\n");
+			clientOutput.flush();
 			String serverResponse = null;
-			while ((serverResponse = _in.readLine()) != null) {
+			while ((serverResponse = serverInput.readLine()) != null) {
 				if (Integer.parseInt(serverResponse) > 0) {
 					System.out.println(serverResponse);
 					return Integer.parseInt(serverResponse);
@@ -82,5 +82,5 @@ public class Client extends JFrame {
 		}
 		return -1;
 
-	} // run()*/
+	}
 }

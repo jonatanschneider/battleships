@@ -57,16 +57,16 @@ public class Client {
 	        JOptionPane.showMessageDialog(shootFrame, "Du kannst jetzt auf das Feld deines Gegners schieﬂen");
 		}
 		
-		public static int sendToServer(int[] coords, int meth) throws IOException{    	                            
+		public static int sendToServer(int[] coordinates, int meth) throws IOException{    	                            
 			try{
 				//_Socket.setSoTimeout(5000);
-				int x = coords[0];
-				int y = coords[1];
+				int x = coordinates[0];
+				int y = coordinates[1];
 				int endx = 0;
 				int endy = 0;
 				if(meth == 0){
-				endx = coords[2];
-				endy = coords[3];
+				endx = coordinates[2];
+				endy = coordinates[3];
 				}
 				
 				_out.print(x +"" + y + ""+ endx + ""+ endy + "" + meth + "\n");   
