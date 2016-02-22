@@ -21,7 +21,7 @@ public class ClientPlayer extends game.Player {
 						this.ships[i] = new Submarine();
 						this.ships[i].setCoordinates(coordinates);
 //						JOptionPane.showMessageDialog(null, "U-Boot erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
-						main.sendToServer(coordinates, 0);
+						Client.sendToServer(coordinates, 0);
 						this.submarinesToCreate--;
 						}
 					else{
@@ -33,7 +33,7 @@ public class ClientPlayer extends game.Player {
 						this.ships[i] = new Destroyer();
 						this.ships[i].setCoordinates(coordinates);
 //						JOptionPane.showMessageDialog(null, "Zerstörer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
-						main.sendToServer(coordinates, 0);
+						Client.sendToServer(coordinates, 0);
 						this.destoryersToCreate--;
 					}
 					else{
@@ -45,7 +45,7 @@ public class ClientPlayer extends game.Player {
 						this.ships[i] = new Cruiser();
 						this.ships[i].setCoordinates(coordinates);
 //						JOptionPane.showMessageDialog(null, "Kreuzer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
-						 main.sendToServer(coordinates, 0);
+						 Client.sendToServer(coordinates, 0);
 						this.cruisersToCreate--;
 					}
 					else{
@@ -57,7 +57,7 @@ public class ClientPlayer extends game.Player {
 						this.ships[i] = new Battleship();
 						this.ships[i].setCoordinates(coordinates);
 //						JOptionPane.showMessageDialog(null, "Schlachtschiff erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
-						main.sendToServer(coordinates, 0);
+						Client.sendToServer(coordinates, 0);
 						this.battleshipsToCreate--;
 					}
 					else{

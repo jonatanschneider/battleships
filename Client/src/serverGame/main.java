@@ -39,7 +39,7 @@ public class main {
 		while(player2.getStatus() == 0){
 			
 		}
-		ShootPhase shootFrame = new ShootPhase(player2);
+		ServerShootPhase shootFrame = new ServerShootPhase(player2);
 		shootFrame.setResizable(false);  
         shootFrame.buttons(shootFrame.getContentPane());
         shootFrame.pack();

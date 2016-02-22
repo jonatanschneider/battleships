@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
-public class main {
+public class Client {
 	public static ClientPlayer player = new ClientPlayer();
 	public static ClientPlayer player2 = new ClientPlayer();
 	public static Socket _Socket = null;
@@ -19,7 +19,7 @@ public class main {
 		init();
 		initiateSetPhase();	
 	}
-		
+	
 		private static void init(){
 			try{
 			_Socket = new Socket("localhost", 8080);  
@@ -47,7 +47,7 @@ public class main {
 		public static void initiateShootPhase(ClientPlayer player) throws IOException{
 			int warte = sendReady();
 			System.out.println(warte);
-			ShootPhase shootFrame = new ShootPhase(player);
+			ClientShootPhase shootFrame = new ClientShootPhase(player);
 			shootFrame.setResizable(false);  
 	        shootFrame.buttons(shootFrame.getContentPane());
 	        shootFrame.pack();

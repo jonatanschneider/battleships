@@ -1,31 +1,22 @@
-package clientGame;
+package serverGame;
 import java.awt.*;
-import java.io.IOException;
-
 import javax.swing.JOptionPane;
 
-public class ShootPhase extends game.ShootPhase {
-	private ClientPlayer player;
+public class ServerShootPhase extends game.ShootPhase {
+	private ServerPlayer player;
 	
-	public ShootPhase(ClientPlayer player) {
+	public ServerShootPhase(ServerPlayer player) {
 		super();
 		this.player = player;
 	}
 
 	protected void shoot(int[] coordinates) {
-		int shot = -1;
-		try {
-			shot = main.sendToServer(coordinates, 1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		int shot = this.player.isHit(this.button, coordinates[0], coordinates[1]);
 		if (shot == 1) {
 			colorButton(coordinates, Color.red, true);
 			JOptionPane.showMessageDialog(null, "Treffer!");
 		}
 		else if (shot == 2) {
-			player.findOther(this.button, coordinates);
 			colorButton(coordinates, Color.green, true);
 			JOptionPane.showMessageDialog(null, "Treffer und versenkt!");
 		}
