@@ -1,4 +1,4 @@
-package serverGame;
+package server;
 import java.awt.*;
 import javax.swing.JOptionPane;
 

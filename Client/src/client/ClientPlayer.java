@@ -1,4 +1,4 @@
-package clientGame;
+package client;
 import javax.swing.*;
 import ships.*;
 import java.awt.Color;

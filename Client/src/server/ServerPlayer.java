@@ -1,4 +1,4 @@
-package serverGame;
+package server;
 import javax.swing.*;
 import ships.Battleship;
 import ships.*;

@@ -1,9 +1,11 @@
-package serverGame;
+package server;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.JOptionPane;
-import serverGame.ServerPlayer;
+
+import server.ServerPlayer;
 
 public class ServerSetPhase extends game.SetPhase {
 	private ServerPlayer player;
@@ -37,7 +39,7 @@ public class ServerSetPhase extends game.SetPhase {
 				if(player.allShipsSet()){
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Alle Schiffe erstellt!");
-					main.initiateShootPhase();
+					Server.initiateShootPhase();
 				}
 			}
 		};

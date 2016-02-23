@@ -1,4 +1,5 @@
 package game;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -44,15 +45,14 @@ public abstract class Buttons extends JFrame {
 			// 1 stellige Ergebnisse gibt es bei dieser Größe nur bei 0
 			coordinates[0] = 0;
 			source = source.substring(2);
-			//Counter sorgt dafür, dass ein String genau 2x durchlaufen wird um
-			//x und y zu bestimmen
+			// Counter sorgt dafür, dass ein String genau 2x durchlaufen wird um
+			// x und y zu bestimmen
 			if (this.getCoordinatesCounter == 0) {
 				this.getCoordinatesCounter++;
 				int[] tempCoordinates = this.getCoordinatesOfClick(source);
 				coordinates[1] = tempCoordinates[0];
 			}
-		}
-		else if (source.substring(2).startsWith(",")) {
+		} else if (source.substring(2).startsWith(",")) {
 			coordinates[0] = Integer.parseInt(source.substring(0, 2)) / 50;
 			source = source.substring(3);
 			if (this.getCoordinatesCounter == 0) {
@@ -60,8 +60,7 @@ public abstract class Buttons extends JFrame {
 				int[] tempCoordinates = this.getCoordinatesOfClick(source);
 				coordinates[1] = tempCoordinates[0];
 			}
-		}
-		else {
+		} else {
 			coordinates[0] = Integer.parseInt(source.substring(0, 3)) / 50;
 			source = source.substring(4);
 			if (this.getCoordinatesCounter == 0) {
@@ -82,29 +81,27 @@ public abstract class Buttons extends JFrame {
 		if (xOfStart == xOfEnd) {
 			if (yOfEnd > yOfStart) {
 				return yOfEnd - yOfStart;
-			}
-			else {
+			} else {
 				return yOfStart - yOfEnd;
 			}
-		}
-		else if (yOfStart == yOfEnd) {
+		} else if (yOfStart == yOfEnd) {
 			if (xOfEnd > xOfStart) {
 				return xOfEnd - xOfStart;
-			}
-			else {
+			} else {
 				return xOfStart - xOfEnd;
 			}
 		}
 		return -1;
 	}
 
-	protected void colorButton(int[] coordinates, Color color, boolean deactivateButton) {
+	protected void colorButton(int[] coordinates, Color color,
+			boolean deactivateButton) {
 		// TODO: Warum ist hier wieder x und y vertauscht?
-		if(deactivateButton){
+		if (deactivateButton) {
 			this.button[coordinates[1]][coordinates[0]].setEnabled(false);
 		}
 		this.button[coordinates[1]][coordinates[0]].setBackground(color);
 	}
-	
+
 	protected abstract void buttons(Container pane);
 }

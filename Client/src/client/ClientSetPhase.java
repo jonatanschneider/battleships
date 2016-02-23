@@ -1,10 +1,12 @@
-package clientGame;
+package client;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+
 import javax.swing.JOptionPane;
-import clientGame.ClientPlayer;
+
+import client.ClientPlayer;
 
 public class ClientSetPhase extends game.SetPhase {
 	private ClientPlayer player;
