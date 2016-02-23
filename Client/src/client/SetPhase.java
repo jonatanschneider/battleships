@@ -1,16 +1,17 @@
-package server;
+package client;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import server.ServerPlayer;
+import client.Player;
 
-public class ServerSetPhase extends game.SetPhase {
-	private ServerPlayer player;
+public class SetPhase extends game.SetPhase {
+	private Player player;
 	
-	public ServerSetPhase(ServerPlayer player) {
+	public SetPhase(Player player) {
 		super();
 		this.player = player;
 	}
@@ -33,13 +34,23 @@ public class ServerSetPhase extends game.SetPhase {
 						clickCoordinates[2] = coordinates[0];
 						clickCoordinates[3] = coordinates[1];
 						clickCounter++;
-						setShipByClickCoordinates();
+						try {
+							setShipByClickCoordinates();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 				if(player.allShipsSet()){
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Alle Schiffe erstellt!");
-					Server.initiateShootPhase();
+					try {
+						Client.initiateShootPhase(player);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		};
@@ -47,7 +58,7 @@ public class ServerSetPhase extends game.SetPhase {
 		pane.add(this.panel, BorderLayout.NORTH);
 	}
 
-	private void setShipByClickCoordinates() {
+	private void setShipByClickCoordinates() throws IOException {
 		this.player.setShip(this.clickCoordinates);
 		this.clickCounter = 0;
 		this.player.showShips(this.button);

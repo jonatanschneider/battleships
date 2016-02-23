@@ -9,8 +9,8 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 public class Client {
-	public static ClientPlayer player = new ClientPlayer();
-	public static ClientPlayer player2 = new ClientPlayer();
+	public static Player player = new Player();
+	public static Player player2 = new Player();
 	public static Socket Socket = null;
 	public static PrintStream clientOutput = null;
 	public static BufferedReader serverInput = null;
@@ -34,8 +34,8 @@ public class Client {
 	}
 
 	private static void initiateSetPhase() {
-		ClientPlayer player = new ClientPlayer();
-		ClientSetPhase setShipFrame = new ClientSetPhase(player);
+		Player player = new Player();
+		SetPhase setShipFrame = new SetPhase(player);
 		setShipFrame.setResizable(false);
 		setShipFrame.buttons(setShipFrame.getContentPane());
 		setShipFrame.pack();
@@ -47,11 +47,11 @@ public class Client {
 						+ "Klick dazu immer auf das Anfangs- und Endfeld");
 	}
 
-	public static void initiateShootPhase(ClientPlayer player)
+	public static void initiateShootPhase(Player player)
 			throws IOException {
 		int warte = sendReady();
 		System.out.println(warte);
-		ClientShootPhase shootFrame = new ClientShootPhase(player);
+		ShootPhase shootFrame = new ShootPhase(player);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();

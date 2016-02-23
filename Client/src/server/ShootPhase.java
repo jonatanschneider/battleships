@@ -2,10 +2,10 @@ package server;
 import java.awt.*;
 import javax.swing.JOptionPane;
 
-public class ServerShootPhase extends game.ShootPhase {
-	private ServerPlayer player;
+public class ShootPhase extends game.ShootPhase {
+	private Player player;
 	
-	public ServerShootPhase(ServerPlayer player) {
+	public ShootPhase(Player player) {
 		super();
 		this.player = player;
 	}

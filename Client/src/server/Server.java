@@ -4,8 +4,8 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 public class Server {
-	public static ServerPlayer player = new ServerPlayer();
-	public static ServerPlayer player2 = new ServerPlayer();
+	public static Player player = new Player();
+	public static Player player2 = new Player();
 
 	public static void main(String[] args) throws UnknownHostException {
 
@@ -15,7 +15,7 @@ public class Server {
 			e.printStackTrace();
 		}
 
-		ServerSetPhase setShipFrame = new ServerSetPhase(player);
+		SetPhase setShipFrame = new SetPhase(player);
 		setShipFrame.setResizable(false);
 		setShipFrame.buttons(setShipFrame.getContentPane());
 		setShipFrame.pack();
@@ -38,7 +38,7 @@ public class Server {
 		while (player2.getStatus() == 0) {
 
 		}
-		ServerShootPhase shootFrame = new ServerShootPhase(player2);
+		ShootPhase shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();

@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-public class ClientShootPhase extends game.ShootPhase {
-	private ClientPlayer player;
+public class ShootPhase extends game.ShootPhase {
+	private Player player;
 	
-	public ClientShootPhase(ClientPlayer player) {
+	public ShootPhase(Player player) {
 		super();
 		this.player = player;
 	}
