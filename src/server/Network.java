@@ -17,7 +17,8 @@ public class Network extends Thread {
 	Socket clientSocket = null;
 	static PrintWriter serverOutput = null;
 	BufferedReader clientInput = null;
-
+	static int status = -1;
+	
 	public Network() {
 
 		try {
@@ -48,6 +49,21 @@ public class Network extends Thread {
 						} else {
 							Server.player2.setStatus(1);
 						}
+					}else if(incoming.equals("end")){
+						clientInput.close();
+						serverOutput.close();
+						serverSocket.close();
+						JOptionPane.showMessageDialog(null,
+								"Spieler 2 hat das Spiel verlassen");
+						System.exit(0);
+					}else if(status == 0){
+						serverOutput.write("end\n");
+						serverOutput.flush();
+						clientInput.close();
+						serverOutput.close();
+						serverSocket.close();
+						System.exit(0);
+						
 					} else {
 						int xOfStart = Integer.parseInt(incoming
 								.substring(0, 1));
@@ -87,6 +103,15 @@ public class Network extends Thread {
 				}
 				e.printStackTrace();
 			}
+			try {
+				clientInput.close();
+				serverSocket.close();
+				serverOutput.close();
+				System.exit(0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 
