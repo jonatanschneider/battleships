@@ -26,7 +26,7 @@ public class Client extends Thread {
 
 	private static void init() {
 		try {
-			Socket = new Socket("localhost", 8080);
+			Socket = new Socket("10.10.100.10", 8080);
 			clientOutput = new PrintStream(Socket.getOutputStream(), true);
 			serverInput = new BufferedReader(new InputStreamReader(
 					Socket.getInputStream()));

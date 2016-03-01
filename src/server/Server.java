@@ -84,8 +84,10 @@ public class Server {
 				"Beenden", 
 				JOptionPane.YES_NO_OPTION, 
 				JOptionPane.QUESTION_MESSAGE); 
-		if(end == 0){
+		if(end == 0 && Network.connectet == 1){
 			Network.status = 0;
+		}else{
+			Network.quit();
 		}
 	}
 }

@@ -13,11 +13,12 @@ import javax.swing.JOptionPane;
 
 public class Network extends Thread {
 
-	ServerSocket serverSocket = null;
+	static ServerSocket serverSocket = null;
 	Socket clientSocket = null;
 	static PrintWriter serverOutput = null;
-	BufferedReader clientInput = null;
+	static BufferedReader clientInput = null;
 	static int status = -1;
+	static int connectet = -1;
 	
 	public Network() {
 
@@ -33,6 +34,7 @@ public class Network extends Thread {
 		while (true) {
 			try {
 				clientSocket = serverSocket.accept();
+				connectet = 1;
 				clientInput = new BufferedReader(new InputStreamReader(
 						clientSocket.getInputStream()));
 				serverOutput = new PrintWriter(clientSocket.getOutputStream());
@@ -113,6 +115,17 @@ public class Network extends Thread {
 			}
 			
 		}
+	}
+	
+	public static void quit(){
+			try {
+				//serverOutput.write("end/n");
+				//serverOutput.flush();
+				serverSocket.close();
+				System.exit(0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
 	}
 
 	public static void sendReady() {
