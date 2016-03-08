@@ -32,7 +32,7 @@ public class ShootPhase extends Buttons{
 	}
 	
 	protected void shoot(int[] coordinates) {
-		int shot = this.player.isHit(this.button, coordinates[0], coordinates[1]);
+		int shot = this.player.anyShipIsHit(this.button, coordinates[0], coordinates[1]);
 		if (shot == 1) {
 			colorButton(coordinates, Color.red, true);
 			JOptionPane.showMessageDialog(null, "Treffer!");

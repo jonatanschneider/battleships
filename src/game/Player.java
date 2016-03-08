@@ -13,18 +13,14 @@ import ships.Ship;
 import ships.Submarine;
 
 public class Player implements Serializable {
-	protected int battleshipsToCreate;
-	protected int cruisersToCreate;
-	protected int destoryersToCreate;
-	protected int submarinesToCreate;
 	protected Ship[] ships;
+	protected int battleshipsToCreate = 1;
+	protected int cruisersToCreate = 2;
+	protected int destoryersToCreate = 3;
+	protected int submarinesToCreate = 4;
 	private int status;
 	
 	public Player(){
-		this.battleshipsToCreate = 1;
-		this.cruisersToCreate = 2;
-		this.destoryersToCreate = 3;
-		this.submarinesToCreate = 4;
 		this.ships = new Ship[10];
 		this.status = 0;
 	}
@@ -43,56 +39,70 @@ public class Player implements Serializable {
 				switch(shipLength){
 				case 1:
 					if(this.submarinesToCreate > 0){
-						
 						this.ships[i] = new Submarine();
 						this.ships[i].setCoordinates(coordinates);
-						//JOptionPane.showMessageDialog(null, "U-Boot erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
 						this.submarinesToCreate--;
 						}
 					else{
-						JOptionPane.showMessageDialog(null, "Maximale Anzahl an U-Booten erreicht (4 Stück)!","Maximale Anzahl erreicht!",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an U-Booten erreicht (4 Stück)!",
+								"Maximale Anzahl erreicht!",
+								JOptionPane.ERROR_MESSAGE);
 					}
 						break;
 				case 2:
 					if(this.destoryersToCreate > 0){
 						this.ships[i] = new Destroyer();
 						this.ships[i].setCoordinates(coordinates);
-						//JOptionPane.showMessageDialog(null, "Zerstörer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
 						this.destoryersToCreate--;
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Zerstörern erreicht (3 Stück)!","Maximale Anzahl erreicht!",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Zerstörern erreicht (3 Stück)!",
+								"Maximale Anzahl erreicht!",
+								JOptionPane.ERROR_MESSAGE);
 					}
 					break;
 				case 3:
 					if(this.cruisersToCreate > 0){
 						this.ships[i] = new Cruiser();
 						this.ships[i].setCoordinates(coordinates);
-						//JOptionPane.showMessageDialog(null, "Kreuzer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
 						this.cruisersToCreate--;
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Kreuzern erreicht (2 Stück)!", "Maximale Anzahl erreicht",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Kreuzern erreicht (2 Stück)!", 
+								"Maximale Anzahl erreicht",
+								JOptionPane.ERROR_MESSAGE);
 					}
 					break;
 				case 4:
 					if(this.battleshipsToCreate > 0){
 						this.ships[i] = new Battleship();
 						this.ships[i].setCoordinates(coordinates);
-						//JOptionPane.showMessageDialog(null, "Schlachtschiff erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
 						this.battleshipsToCreate--;
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Schlachtschiffen erreicht (1 Stück)!","Maximale Anzahl erreicht",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Schlachtschiffen erreicht (1 Stück)!",
+								"Maximale Anzahl erreicht",
+								JOptionPane.ERROR_MESSAGE);
 					}
 					break;
 				default:
-					JOptionPane.showMessageDialog(null, "Deine Auswahl hat keine erlaubte Größe (min. 2, max. 5 Kästchen)!","Falsche Größe!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Deine Auswahl hat keine erlaubte Größe (min. 2, max. 5 Kästchen)!",
+							"Falsche Größe!",
+							JOptionPane.ERROR_MESSAGE);
 					break;
 				}
 				break;
 			}
 		}
+	}
+	
+	public boolean allShipsSet(){
+		for (Ship ship : ships) {
+			if (ship == null){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public JButton[][] showShips(JButton[][] button){
@@ -106,7 +116,7 @@ public class Player implements Serializable {
 							//TODO: X und y vertauscht
 							button[j][i].setEnabled(false);
 							button[j][i].setBackground(Color.blue);
-							button = deactiveSurroundingButtons(button, i, j);
+							button = deactiveSurroundingButtons(button, j, i);
 						}
 					}
 				}
@@ -123,10 +133,11 @@ public class Player implements Serializable {
 	 * @return Gibt alle Buttons, inklusive der deaktivierten, zurück
 	 */
 	protected JButton[][] deactiveSurroundingButtons(JButton[][] button, int x, int y){
+		//-1 Damit die Buttons links und oberhalb auch deaktiviert werden
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				try{
-					button[y+j][x+i].setEnabled(false);
+					button[x+j][y+i].setEnabled(false);
 				}
 					catch(ArrayIndexOutOfBoundsException e){
 				}
@@ -142,7 +153,7 @@ public class Player implements Serializable {
 	 * @param y Y-Koordinate des Schusses
 	 * @return 0 = Kein Treffer, 1 = Treffer, 2 = Treffer und versenkt
 	 */
-	public int isHit(JButton[][] button, int x, int y){
+	public int anyShipIsHit(JButton[][] button, int x, int y){
 		for (Ship ship : ships) {
 			if(ship != null){
 				if(ship.isHit(x, y)){
@@ -157,34 +168,6 @@ public class Player implements Serializable {
 		return 0;
 	}
 	
-	public int serverisHit(int x, int y){
-		for (Ship ship : ships) {
-			if(ship != null){
-				if(ship.isHit(x, y)){
-					if(ship.isSunken()){		
-						return 2;
-					}
-					return 1;
-				}
-			}
-		}
-		return 0;
-	}
-	
-	public int serverisHit(JButton[][] button, int x, int y){
-		for (Ship ship : ships) {
-			if(ship != null){
-				if(ship.isHit(x, y)){
-					if(ship.isSunken()){
-						return 2;
-					}
-					return 1;
-				}
-			}
-		}
-		return 0;
-	}
-
 	private void shipIsSunken(JButton[][] button, Ship ship){
 		int[][] coordinates = ship.getCoordinates();
 		for (int i = 0; i < coordinates.length; i++) {
@@ -199,15 +182,6 @@ public class Player implements Serializable {
 		}
 	}
 
-	public boolean allShipsSet(){
-		for (Ship ship : ships) {
-			if (ship == null){
-				return false;
-			}
-		}
-		return true;
-	}
-	
 	public boolean allShipsSunken(){
 		for (Ship ship : ships) {
 			if(ship != null){

@@ -94,8 +94,7 @@ public abstract class Buttons extends JFrame {
 		return -1;
 	}
 
-	protected void colorButton(int[] coordinates, Color color,
-			boolean deactivateButton) {
+	protected void colorButton(int[] coordinates, Color color, boolean deactivateButton) {
 		// TODO: Warum ist hier wieder x und y vertauscht?
 		if (deactivateButton) {
 			this.button[coordinates[1]][coordinates[0]].setEnabled(false);
