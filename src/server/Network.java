@@ -11,6 +11,8 @@ import java.net.SocketException;
 
 import javax.swing.JOptionPane;
 
+import game.Player;
+
 public class Network extends Thread {
 
 	static ServerSocket serverSocket = null;
@@ -44,12 +46,12 @@ public class Network extends Thread {
 					String incoming = null;
 					incoming = clientInput.readLine();
 					if (incoming.equals("ready")) {
-						if (Server.player.getStatus() == 1) {
+						if (Player.getStatus() == 1) {
 							serverOutput.write("ready\n");
 							serverOutput.flush();
-							Server.player2.setStatus(1);
+							Player.setStatus(1);
 						} else {
-							Server.player2.setStatus(1);
+							Player.setStatus(1);
 						}
 					}else if(incoming.equals("end")){
 						clientInput.close();
@@ -82,12 +84,12 @@ public class Network extends Thread {
 							for (int i = 0; i < coords.length; i++) {
 								System.out.println(coords[i]);
 							}
-							Server.player2.setShip(coords);
+							Player.setShip(coords);
 							System.out.println("test");
 							serverOutput.write("1\n");
 							serverOutput.flush();
 						} else {
-							int ergebniss = Server.player.serverisHit(xOfStart,
+							int ergebniss = Player.serverisHit(xOfStart,
 									yOfStart);
 							System.out.println(ergebniss);
 							serverOutput.write(ergebniss + "\n");

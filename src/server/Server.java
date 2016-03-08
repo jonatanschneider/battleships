@@ -8,6 +8,8 @@ import java.net.UnknownHostException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import game.*;
+
 public class Server {
 	public static Player player = new Player();
 	public static Player player2 = new Player();

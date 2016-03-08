@@ -1,7 +1,14 @@
 package game;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+import server.SetPhase;
+import ships.Battleship;
+import ships.Cruiser;
+import ships.Destroyer;
 import ships.Ship;
+import ships.Submarine;
 
 public class Player {
 	protected int battleshipsToCreate;
@@ -9,13 +16,81 @@ public class Player {
 	protected int destoryersToCreate;
 	protected int submarinesToCreate;
 	protected Ship[] ships;
+	private int status;
 	
-	protected Player(){
+	public Player(){
 		this.battleshipsToCreate = 1;
 		this.cruisersToCreate = 2;
 		this.destoryersToCreate = 3;
 		this.submarinesToCreate = 4;
 		this.ships = new Ship[10];
+		this.status = 0;
+	}
+	
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getStatus() {
+		return status;
+	}
+	
+	public void setShip(int[] coordinates){
+		for (int i = 0; i < this.ships.length; i++) {
+			if(this.ships[i] == null){		
+				int shipLength = SetPhase.calculateLengthBetweenCoordinates(coordinates);
+				switch(shipLength){
+				case 1:
+					if(this.submarinesToCreate > 0){
+						
+						this.ships[i] = new Submarine();
+						this.ships[i].setCoordinates(coordinates);
+						//JOptionPane.showMessageDialog(null, "U-Boot erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
+						this.submarinesToCreate--;
+						}
+					else{
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an U-Booten erreicht (4 Stück)!","Maximale Anzahl erreicht!",JOptionPane.ERROR_MESSAGE);
+					}
+						break;
+				case 2:
+					if(this.destoryersToCreate > 0){
+						this.ships[i] = new Destroyer();
+						this.ships[i].setCoordinates(coordinates);
+						//JOptionPane.showMessageDialog(null, "Zerstörer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
+						this.destoryersToCreate--;
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Zerstörern erreicht (3 Stück)!","Maximale Anzahl erreicht!",JOptionPane.ERROR_MESSAGE);
+					}
+					break;
+				case 3:
+					if(this.cruisersToCreate > 0){
+						this.ships[i] = new Cruiser();
+						this.ships[i].setCoordinates(coordinates);
+						//JOptionPane.showMessageDialog(null, "Kreuzer erstellt!","Schiff erstellt", JOptionPane.INFORMATION_MESSAGE);
+						this.cruisersToCreate--;
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Kreuzern erreicht (2 Stück)!", "Maximale Anzahl erreicht",JOptionPane.ERROR_MESSAGE);
+					}
+					break;
+				case 4:
+					if(this.battleshipsToCreate > 0){
+						this.ships[i] = new Battleship();
+						this.ships[i].setCoordinates(coordinates);
+						//JOptionPane.showMessageDialog(null, "Schlachtschiff erstellt!","Schiff erstellt",JOptionPane.INFORMATION_MESSAGE);
+						this.battleshipsToCreate--;
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Maximale Anzahl an Schlachtschiffen erreicht (1 Stück)!","Maximale Anzahl erreicht",JOptionPane.ERROR_MESSAGE);
+					}
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "Deine Auswahl hat keine erlaubte Größe (min. 2, max. 5 Kästchen)!","Falsche Größe!",JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				break;
+			}
+		}
 	}
 	
 	public JButton[][] showShips(JButton[][] button){

@@ -1,11 +1,8 @@
 package server;
-
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.JOptionPane;
-
-import server.Player;
+import game.Player;
 
 public class SetPhase extends game.SetPhase {
 	private Player player;

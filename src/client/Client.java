@@ -8,13 +8,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import game.*;
 
 public class Client extends Thread {
 	public static Player player = new Player();
-	public static Player player2 = new Player();
 	public static Socket Socket = null;
 	public static PrintStream clientOutput = null;
 	public static BufferedReader serverInput = null;
