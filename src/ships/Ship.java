@@ -1,6 +1,7 @@
 package ships;
+import java.io.Serializable;
 
-public class Ship {
+public class Ship implements Serializable {
 	protected int length;
 	protected int[][] coordinates;
 	public int[][] hits;

@@ -5,18 +5,24 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import server.Server;
 import game.*;
 
 public class Client extends Thread {
 	public static Player player = new Player();
+	public static Player player2 = new Player();
 	public static Socket Socket = null;
-	public static PrintStream clientOutput = null;
-	public static BufferedReader serverInput = null;
+	public static ObjectOutputStream clientOutput = null;
+	public static ObjectInputStream serverInput = null;
 
 	public static void main(String[] args) {
 		init();
@@ -25,10 +31,10 @@ public class Client extends Thread {
 
 	private static void init() {
 		try {
-			Socket = new Socket("10.10.100.10", 8080);
-			clientOutput = new PrintStream(Socket.getOutputStream(), true);
-			serverInput = new BufferedReader(new InputStreamReader(
-					Socket.getInputStream()));
+			Socket = new Socket("localhost", 8080);
+			clientOutput = new ObjectOutputStream(Socket.getOutputStream());
+			serverInput = new ObjectInputStream(Socket.getInputStream());
+			
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,
 					"Es konnte keine Verbindung hergestellt werden");
@@ -58,15 +64,18 @@ public class Client extends Thread {
       );     
 	}
 
-	public static void initiateShootPhase(Player player)
+	public static void initiateShootPhase()
 			throws IOException {
-		int warte = sendReady();
-		System.out.println(warte);
-		ShootPhase shootFrame = new ShootPhase(player);
+		waitForPlayer();
+		while(player2.getStatus() == 0){
+			System.out.println(player2.getStatus());
+		}
+		
+		ShootPhase shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();
-		shootFrame.setName("Spieler B: Felder beschießen");
+		shootFrame.setTitle("Spieler B: Felder beschießen");
 		shootFrame.setVisible(true);
 		shootFrame.setLocationRelativeTo(null);
 		shootFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
@@ -80,74 +89,24 @@ public class Client extends Thread {
      );     
 	}
 
-	public static int sendToServer(int[] coordinates, int isShot)
-			throws IOException {
+	public static void waitForPlayer(){
+		player.setStatus(1);
 		try {
-			// _Socket.setSoTimeout(5000);
-			int xOfStart = coordinates[0];
-			int yOfStart = coordinates[1];
-			int xOfEnd = 0;
-			int yOfEnd = 0;
-			if (isShot == 0) {
-				xOfEnd = coordinates[2];
-				yOfEnd = coordinates[3];
-			}
-
-			clientOutput.print(xOfStart + "" + yOfStart + "" + xOfEnd + ""
-					+ yOfEnd + "" + isShot + "\n");
+			clientOutput.writeObject(player);
 			clientOutput.flush();
-			String serverResponse = null;
-			while ((serverResponse = serverInput.readLine()) != null) {
-				try{
-					if (Integer.parseInt(serverResponse) >= 0) {
-						System.out.println(serverResponse);
-						return Integer.parseInt(serverResponse);
-					}
-				}catch(NumberFormatException e){
-					if(serverResponse.equals("end")){
-						JOptionPane.showMessageDialog(null,
-								"Spieler 1 hat das Spiel verlassen");
-						System.exit(0);
-					}
-				}
+			while ((player2 = (Player)serverInput.readObject()) != null) {
+				System.out.println("Erfolgreich");
+				System.out.println(player2.getStatus());
+				break;
 			}
-		} catch (UnknownHostException e) {
-			JOptionPane.showMessageDialog(null,
-					"Zeitüberschreiung bei Serveranfrage");
-		} catch (IOException e){
-		}
-		return -1;
-
-	}
-
-	public static int sendReady() throws IOException {
-		try {
-			// _Socket.setSoTimeout(5000);
-			clientOutput.print("ready\n");
-			clientOutput.flush();
-			String serverResponse = null;
-			JOptionPane.showMessageDialog(null, "Warte auf Spieler1");
-			while ((serverResponse = serverInput.readLine()) != null) {
-				if (serverResponse.equals("ready")) {
-					System.out.println(serverResponse);
-					return 1;
-				}else if(serverResponse.equals("end")){
-					JOptionPane.showMessageDialog(null,
-							"Spieler 1 hat das Spiel verlassen");
-				}
-			}
-		} catch (UnknownHostException e) {
-			JOptionPane.showMessageDialog(null,
-					"Zeitüberschreiung bei Serveranfrage");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return 0;
-
-	}
-	
-	public static void quit(){
-		clientOutput.print("end\n");
-		clientOutput.flush();
+		
 	}
 	
 	private static void closeApp(){
@@ -157,7 +116,6 @@ public class Client extends Thread {
 				JOptionPane.YES_NO_OPTION, 
 				JOptionPane.QUESTION_MESSAGE); 
 		if(end == 0){
-			quit();
 			System.exit(0);
 		}
 	}

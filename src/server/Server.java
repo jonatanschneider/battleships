@@ -46,24 +46,18 @@ public class Server {
 	}
 
 	public static void initiateShootPhase() {
-		if (player2.getStatus() == 1) {
-			Network.sendReady();
-		} else {
-			player.setStatus(1);
-			JOptionPane.showMessageDialog(null, "Warte auf Spieler 2");
-		}
-
+		player.setStatus(1);
 		while (player2.getStatus() == 0) {
-
+			System.out.println(player2.getStatus());
 		}
 		ShootPhase shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();
-		shootFrame.setName("Spieler A: Felder beschieﬂen");
+		shootFrame.setTitle("Spieler A: Felder beschieﬂen");
 		shootFrame.setVisible(true);
 		shootFrame.setLocationRelativeTo(null);
-		shootFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		shootFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 		JOptionPane.showMessageDialog(shootFrame,
 				"Du kannst jetzt auf das Feld deines Gegners schieﬂen");
 		
@@ -89,7 +83,6 @@ public class Server {
 		if(end == 0 && Network.connectet == 1){
 			Network.status = 0;
 		}else{
-			Network.quit();
 		}
 	}
 }

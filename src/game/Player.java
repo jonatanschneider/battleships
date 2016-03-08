@@ -1,5 +1,7 @@
 package game;
 import java.awt.Color;
+import java.io.Serializable;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -10,7 +12,7 @@ import ships.Destroyer;
 import ships.Ship;
 import ships.Submarine;
 
-public class Player {
+public class Player implements Serializable {
 	protected int battleshipsToCreate;
 	protected int cruisersToCreate;
 	protected int destoryersToCreate;

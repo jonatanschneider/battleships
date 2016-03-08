@@ -44,7 +44,7 @@ public class SetPhase extends game.SetPhase {
 					setVisible(false);
 					JOptionPane.showMessageDialog(null, "Alle Schiffe erstellt!");
 					try {
-						Client.initiateShootPhase(player);
+						Client.initiateShootPhase();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
