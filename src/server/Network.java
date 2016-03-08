@@ -1,20 +1,11 @@
 package server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-
 import javax.swing.JOptionPane;
-
 import game.Player;
 
 public class Network extends Thread {
@@ -42,24 +33,22 @@ public class Network extends Thread {
 				clientSocket = serverSocket.accept();
 				serverOutput = new ObjectOutputStream(clientSocket.getOutputStream());
 				clientInput = new ObjectInputStream(clientSocket.getInputStream());
-				JOptionPane.showMessageDialog(null,
-						"Spieler Zwei ist Verbunden");
+				JOptionPane.showMessageDialog(null,"Spieler Zwei ist Verbunden");
 				int send = 0;
 				while (true) {
-					try {
 						Server.player2 = (Player)clientInput.readObject();
-						while(send == 0){
-							if(Server.player.getStatus() == 1){
-							serverOutput.writeObject(Server.player);
-							serverOutput.flush();
-							send = 1;
-							}
+					while(send == 0){
+						if(Server.player.getStatus() == 1){
+						serverOutput.writeObject(Server.player);
+						serverOutput.flush();
+						send = 1;
 						}
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
 					}
 				}
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -2,20 +2,14 @@ package client;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import server.Server;
-import game.*;
+import game.Player;
+import game.ShootPhase;
 
 public class Client extends Thread {
 	public static Player player = new Player();
@@ -43,7 +37,6 @@ public class Client extends Thread {
 	}
 
 	private static void initiateSetPhase() {
-		Player player = new Player();
 		SetPhase setShipFrame = new SetPhase(player);
 		setShipFrame.setResizable(false);
 		setShipFrame.buttons(setShipFrame.getContentPane());
@@ -64,8 +57,7 @@ public class Client extends Thread {
       );     
 	}
 
-	public static void initiateShootPhase()
-			throws IOException {
+	public static void initiateShootPhase() throws IOException {
 		waitForPlayer();
 		while(player2.getStatus() == 0){
 			System.out.println(player2.getStatus());
@@ -92,11 +84,10 @@ public class Client extends Thread {
 	public static void waitForPlayer(){
 		player.setStatus(1);
 		try {
-			clientOutput.writeObject(player);
+			clientOutput.writeObject(Client.player);
 			clientOutput.flush();
 			while ((player2 = (Player)serverInput.readObject()) != null) {
-				System.out.println("Erfolgreich");
-				System.out.println(player2.getStatus());
+//				System.out.println("Erfolgreich");
 				break;
 			}
 		} catch (ClassNotFoundException e) {

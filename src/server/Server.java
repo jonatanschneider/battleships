@@ -4,10 +4,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import game.*;
 
 public class Server {
@@ -48,7 +46,7 @@ public class Server {
 	public static void initiateShootPhase() {
 		player.setStatus(1);
 		while (player2.getStatus() == 0) {
-			System.out.println(player2.getStatus());
+//			System.out.println(player2.getStatus());
 		}
 		ShootPhase shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
@@ -73,6 +71,8 @@ public class Server {
         }
      );     
 	}
+	
+	
 	
 	private static void closeApp() throws IOException{
 		int end = JOptionPane.showConfirmDialog(null, 
