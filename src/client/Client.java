@@ -6,10 +6,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 import game.Player;
-import game.ShootPhase;
 
 public class Client extends Thread {
 	public static Player player = new Player();
@@ -17,6 +18,8 @@ public class Client extends Thread {
 	public static Socket Socket = null;
 	public static ObjectOutputStream clientOutput = null;
 	public static ObjectInputStream serverInput = null;
+	public static ShootPhase shootFrame;
+	public static int win = 0;
 
 	public static void main(String[] args) {
 		init();
@@ -25,7 +28,7 @@ public class Client extends Thread {
 
 	private static void init() {
 		try {
-			Socket = new Socket("localhost", 8080);
+			Socket = new Socket("10.10.100.10", 8080);
 			clientOutput = new ObjectOutputStream(Socket.getOutputStream());
 			serverInput = new ObjectInputStream(Socket.getInputStream());
 			
@@ -63,7 +66,7 @@ public class Client extends Thread {
 			System.out.println(player2.getStatus());
 		}
 		
-		ShootPhase shootFrame = new ShootPhase(player2);
+		shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();
@@ -75,10 +78,19 @@ public class Client extends Thread {
 				"Du kannst jetzt auf das Feld deines Gegners schieﬂen");
 		shootFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent event) {
-                    closeApp();
+            		disableField();
+                    //closeApp();
             }
         }
      );     
+	}
+	
+	private static void disableField(){
+		shootFrame.setVisible(false);
+	}
+	
+	private static void enableField(){
+		shootFrame.setVisible(true);
 	}
 
 	public static void waitForPlayer(){
@@ -97,7 +109,6 @@ public class Client extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	private static void closeApp(){
@@ -108,6 +119,31 @@ public class Client extends Thread {
 				JOptionPane.QUESTION_MESSAGE); 
 		if(end == 0){
 			System.exit(0);
+		}
+	}
+	
+	public static void sendShoot(){
+		disableField();
+		try {
+			
+			if(win == 0){
+				clientOutput.write(1);
+			}else if(win == 1){
+				clientOutput.write(2);
+			}
+			clientOutput.flush();
+			int response;
+			while ((response = serverInput.read()) != 0) {
+				if(response == 1){
+					enableField();
+				}
+				else if( response == 2){
+					JOptionPane.showMessageDialog(null, "Spieler A, gewinnt das Spiel!");
+				}
+				break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

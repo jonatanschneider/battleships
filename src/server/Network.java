@@ -16,6 +16,7 @@ public class Network extends Thread {
 	static ObjectInputStream clientInput = null;
 	static int status = -1;
 	static int connectet = -1;
+	public static int shoot = 1;
 	
 	public Network() {
 
@@ -36,12 +37,38 @@ public class Network extends Thread {
 				JOptionPane.showMessageDialog(null,"Spieler Zwei ist Verbunden");
 				int send = 0;
 				while (true) {
-						Server.player2 = (Player)clientInput.readObject();
-					while(send == 0){
-						if(Server.player.getStatus() == 1){
-						serverOutput.writeObject(Server.player);
+					if(Server.player2.getStatus() == 1){
+						shoot = 1;
+						int response = clientInput.read();
+						
+						if(response == 2){
+							JOptionPane.showMessageDialog(null, "Spieler B, gewinnt das Spiel!");
+							clientSocket.close();
+							serverOutput.close();
+							clientInput.close();
+							System.exit(0);
+						}else{
+						Server.enableField();
+						while(shoot != 0){
+							System.out.println("test");
+						}
+						}
+						if(Server.win == 0){
+							serverOutput.write(1);
+						}else if(Server.win == 1){
+							serverOutput.write(2);
+						}
 						serverOutput.flush();
-						send = 1;
+						Server.disableField();
+						shoot = 0;
+					}else{
+						Server.player2 = (Player)clientInput.readObject();
+						while(send == 0){
+							if(Server.player.getStatus() == 1){
+							serverOutput.writeObject(Server.player);
+							serverOutput.flush();
+							send = 1;
+							}
 						}
 					}
 				}

@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public abstract class Buttons extends JFrame {
 
-	protected JButton[][] button;
+	protected static JButton[][] button;
 	protected JPanel panel;
 	protected ActionListener al;
 	protected int getCoordinatesCounter;
@@ -23,6 +23,22 @@ public abstract class Buttons extends JFrame {
 		this.getCoordinatesCounter = 0;
 	}
 
+	public static JButton[][] getField(){
+		return button;
+	}
+	
+	public static void setField(JButton[][] field){
+		button = field;
+	}
+	
+	public static void disableButtons(){
+		for (int i = 0; i < button.length; i++) {
+			for (int j = 0; j < button.length; j++) {
+				button[i][j].setEnabled(false);
+			}
+		}
+	}
+	
 	protected void setButtons() {
 		for (int i = 0; i < this.button.length; i++) {
 			for (int j = 0; j < this.button.length; j++) {

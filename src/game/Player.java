@@ -19,10 +19,19 @@ public class Player implements Serializable {
 	protected int destoryersToCreate = 3;
 	protected int submarinesToCreate = 4;
 	private int status;
+	private JButton[][] field;
+	private JButton[][] disabled = new JButton[10][10];
 	
 	public Player(){
 		this.ships = new Ship[10];
 		this.status = 0;
+		
+		for(int i=0; i < 10; i++){
+			for (int j = 0; j < 9; j++) {
+				disabled[i][j] = new JButton();
+				disabled[i][j].setEnabled(false);
+			}
+		}
 	}
 	
 	public void setStatus(int status) {
@@ -125,6 +134,7 @@ public class Player implements Serializable {
 		return button;
 	}
 	
+
 	/** 
 	 * Deaktiviert die umliegenden Buttons, an welchen keine weitere Schiffe platziert werden dürfen
 	 * @param button Alle Buttons

@@ -4,14 +4,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import server.ShootPhase;
 import game.*;
 
 public class Server {
 	public static Player player = new Player();
 	public static Player player2 = new Player();
-
+	public static ShootPhase shootFrame;
+	public static int win = 0;
+	
 	public static void main(String[] args) throws UnknownHostException {
 
 		try {
@@ -46,14 +51,15 @@ public class Server {
 	public static void initiateShootPhase() {
 		player.setStatus(1);
 		while (player2.getStatus() == 0) {
-//			System.out.println(player2.getStatus());
+			//			System.out.println(player2.getStatus());
 		}
-		ShootPhase shootFrame = new ShootPhase(player2);
+		
+		shootFrame = new ShootPhase(player2);
 		shootFrame.setResizable(false);
 		shootFrame.buttons(shootFrame.getContentPane());
 		shootFrame.pack();
 		shootFrame.setTitle("Spieler A: Felder beschieﬂen");
-		shootFrame.setVisible(true);
+		shootFrame.setVisible(false);
 		shootFrame.setLocationRelativeTo(null);
 		shootFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 		JOptionPane.showMessageDialog(shootFrame,
@@ -71,18 +77,18 @@ public class Server {
         }
      );     
 	}
+
 	
+	public static void disableField(){
+		shootFrame.setVisible(false);
+	}
 	
+	public static void enableField(){
+		shootFrame.setVisible(true);
+	}
 	
 	private static void closeApp() throws IOException{
-		int end = JOptionPane.showConfirmDialog(null, 
-				"Soll das Programm wirklich beendet werden?", 
-				"Beenden", 
-				JOptionPane.YES_NO_OPTION, 
-				JOptionPane.QUESTION_MESSAGE); 
-		if(end == 0 && Network.connectet == 1){
-			Network.status = 0;
-		}else{
-		}
+		
 	}
+	
 }
