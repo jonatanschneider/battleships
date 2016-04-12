@@ -16,6 +16,7 @@ public class Server {
 	public static Player player2 = new Player();
 	public static ShootPhase shootFrame;
 	public static int win = 0;
+	public static boolean connectet = false;
 	
 	public static void main(String[] args) throws UnknownHostException {
 
@@ -51,7 +52,7 @@ public class Server {
 	public static void initiateShootPhase() {
 		player.setStatus(1);
 		while (player2.getStatus() == 0) {
-			//			System.out.println(player2.getStatus());
+			
 		}
 		
 		shootFrame = new ShootPhase(player2);
@@ -70,7 +71,6 @@ public class Server {
                     try {
 						closeApp();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
             }
@@ -88,7 +88,14 @@ public class Server {
 	}
 	
 	private static void closeApp() throws IOException{
-		
+		if(connectet){
+		Network.serverOutput.close();
+		Network.clientInput.close();
+		Network.clientSocket.close();
+		System.exit(0);
+		}else{
+			System.exit(0);
+		}
 	}
 	
 }

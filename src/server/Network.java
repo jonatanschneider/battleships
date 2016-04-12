@@ -11,7 +11,7 @@ import game.Player;
 public class Network extends Thread {
 
 	static ServerSocket serverSocket = null;
-	Socket clientSocket = null;
+	static Socket clientSocket = null;
 	static ObjectOutputStream serverOutput = null;
 	static ObjectInputStream clientInput = null;
 	static int status = -1;
@@ -32,6 +32,7 @@ public class Network extends Thread {
 		while (true) {
 			try {
 				clientSocket = serverSocket.accept();
+				Server.connectet = true;
 				serverOutput = new ObjectOutputStream(clientSocket.getOutputStream());
 				clientInput = new ObjectInputStream(clientSocket.getInputStream());
 				JOptionPane.showMessageDialog(null,"Spieler Zwei ist Verbunden");
@@ -75,7 +76,6 @@ public class Network extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

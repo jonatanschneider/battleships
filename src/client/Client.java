@@ -28,7 +28,7 @@ public class Client extends Thread {
 
 	private static void init() {
 		try {
-			Socket = new Socket("10.10.100.10", 8080);
+			Socket = new Socket("localhost", 8080);
 			clientOutput = new ObjectOutputStream(Socket.getOutputStream());
 			serverInput = new ObjectInputStream(Socket.getInputStream());
 			
@@ -96,7 +96,7 @@ public class Client extends Thread {
 	public static void waitForPlayer(){
 		player.setStatus(1);
 		try {
-			clientOutput.writeObject(Client.player);
+			clientOutput.writeObject(player);
 			clientOutput.flush();
 			while ((player2 = (Player)serverInput.readObject()) != null) {
 //				System.out.println("Erfolgreich");
